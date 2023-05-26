@@ -15,10 +15,15 @@ public class MyDao {
     //스프링의 JdbcTemplate 를 사용하여 쿼리를 불러옴
     private JdbcTemplate jdbcTemplate;
 
+    public void saveData(String today, String todo) {
+        String sql = "INSERT INTO todo (todo_day, todo_list) VALUES (?, ?)";
+        jdbcTemplate.update(sql, today, todo);
+    }
+
     public List<String> fetchData() {
         String columnName;
         Object value;
-        String sql = "SELECT * FROM studenttb1";
+        String sql = "SELECT * FROM todo";
 
         //리스트형으로 결과를 매핑하여 Map에 속성이름과 값을(Object)형으로 넣음
         List<Map<String, Object>> tableData = jdbcTemplate.queryForList(sql);
@@ -34,5 +39,4 @@ public class MyDao {
         }
         return result;
     }
-
 }
